@@ -1,5 +1,8 @@
 package com.serviliocaicedo.turnie.professional;
 
+import com.serviliocaicedo.turnie.service.Service;
+import java.util.HashSet;
+import java.util.Set;
 import com.serviliocaicedo.turnie.business.Business;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -27,6 +30,14 @@ public class Professional {
 
     @Column(nullable = false)
     private boolean active = true;
+
+    @ManyToMany
+    @JoinTable(
+    name = "professional_services",
+    joinColumns = @JoinColumn(name = "professional_id"),
+    inverseJoinColumns = @JoinColumn(name = "service_id")
+    )
+    private Set<Service> services = new HashSet<>();
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
