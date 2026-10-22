@@ -1,9 +1,10 @@
-CREATE TABLE professionals (
+CREATE TABLE resources (
 id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 name VARCHAR(100) NOT NULL,
+type VARCHAR(20) NOT NULL DEFAULT 'PERSON' CHECK (type IN ('PERSON', 'ROOM', 'EQUIPMENT')),
 business_id BIGINT NOT NULL REFERENCES businesses (id),
 active BOOLEAN NOT NULL DEFAULT TRUE,
 created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
-CREATE INDEX idx_professionals_business_id ON professionals (business_id);
+CREATE INDEX idx_resources_business_id ON resources (business_id);
