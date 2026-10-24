@@ -16,7 +16,7 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public UserResponse register(RegisterRequest request) {
+    public UserResponseDto register(RegisterRequestDto request) {
         if (request.role() == Role.ADMIN) {
             throw new InvalidRegistrationException("No se puede registrar una cuenta con ese rol");
         }
@@ -34,6 +34,6 @@ public class AuthService {
                 .role(request.role())
                 .build();
 
-        return UserResponse.from(userRepository.save(user));
+        return UserResponseDto.from(userRepository.save(user));
     }
 }
